@@ -62,141 +62,28 @@
           </p>
         </div>
 
-        <div class="form-card">
-          <!-- REPLACE action="..." with your Formspree endpoint -->
-          <form
-            id="story-form"
-            action="https://formspree.io/f/YOUR_FORM_ID_HERE"
-            method="POST"
-            novalidate
-          >
-            <!-- Honeypot -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-            <div class="form-grid">
-
-              <div class="form-group">
-                <label for="first-name">
-                  <span data-fr="Prénom" data-en="First name">Prénom</span>
-                  <span class="optional" data-fr="(facultatif)" data-en="(optional)">(facultatif)</span>
-                </label>
-                <input
-                  type="text"
-                  id="first-name"
-                  name="first_name"
-                  data-fr-placeholder="ex. Marie"
-                  data-en-placeholder="e.g. Marie"
-                  placeholder="ex. Marie"
-                  autocomplete="given-name"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="email">
-                  <span data-fr="Adresse courriel" data-en="Email address">Adresse courriel</span>
-                  <span class="optional" data-fr="(facultatif — pour suivi seulement)" data-en="(optional — for follow-up only)">(facultatif — pour suivi seulement)</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  data-fr-placeholder="vous@exemple.com"
-                  data-en-placeholder="you@example.com"
-                  placeholder="vous@exemple.com"
-                  autocomplete="email"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="borough">
-                  <span data-fr="Arrondissement de Montréal" data-en="Montreal borough">Arrondissement de Montréal</span>
-                  <span style="color:var(--red)"> *</span>
-                </label>
-                <select id="borough" name="borough" required>
-                  <option value="" disabled selected
-                    data-fr="Choisissez votre arrondissement…"
-                    data-en="Select your borough…">
-                    Choisissez votre arrondissement…
-                  </option>
-                  <option>Ahuntsic-Cartierville</option>
-                  <option>Anjou</option>
-                  <option>Côte-des-Neiges–Notre-Dame-de-Grâce</option>
-                  <option>Lachine</option>
-                  <option>LaSalle</option>
-                  <option>Le Plateau-Mont-Royal</option>
-                  <option>Le Sud-Ouest</option>
-                  <option>L'Île-Bizard–Sainte-Geneviève</option>
-                  <option>Mercier–Hochelaga-Maisonneuve</option>
-                  <option>Montréal-Nord</option>
-                  <option>Outremont</option>
-                  <option>Pierrefonds-Roxboro</option>
-                  <option>Rivière-des-Prairies–Pointe-aux-Trembles</option>
-                  <option>Rosemont–La Petite-Patrie</option>
-                  <option>Saint-Laurent</option>
-                  <option>Saint-Léonard</option>
-                  <option>Verdun</option>
-                  <option>Ville-Marie</option>
-                  <option>Villeray–Saint-Michel–Parc-Extension</option>
-                  <option data-fr="Autre / préfère ne pas préciser" data-en="Other / prefer not to say">Autre / préfère ne pas préciser</option>
-                </select>
-              </div>
-
-
-              <div class="form-group full">
-                <label for="story">
-                  <span data-fr="Décrivez votre situation" data-en="Describe your situation">Décrivez votre situation</span>
-                  <span style="color:var(--red)"> *</span>
-                </label>
-                <textarea
-                  id="story"
-                  name="story"
-                  required
-                  data-fr-placeholder="Dites-nous ce qui s'est passé. Quand est-ce que ça a commencé ? Qu'est-ce qu'Akelius ou la gestion de l'immeuble a fait ou n'a pas fait ? Les avez-vous contactés ? Que s'est-il passé ? Il n'y a pas de mauvaise façon d'écrire ceci."
-                  data-en-placeholder="Tell us what happened. When did it start? What did Akelius or building management do or fail to do? Did you contact them? What happened when you did? There is no wrong way to write this — plain language is fine."
-                  placeholder="Dites-nous ce qui s'est passé. Quand est-ce que ça a commencé ? Qu'est-ce qu'Akelius ou la gestion de l'immeuble a fait ou n'a pas fait ? Les avez-vous contactés ? Que s'est-il passé ? Il n'y a pas de mauvaise façon d'écrire ceci."
-                  rows="8"
-                ></textarea>
-              </div>
-
-              <div class="form-group full">
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    name="consent_to_publish"
-                    value="yes"
-                  />
-                  <label for="consent"
-                    data-fr="Je consens à ce que mon témoignage soit partagé anonymement sur ce site. Je comprends qu'aucune information permettant de m'identifier ne sera publiée sans mon approbation explicite et séparée."
-                    data-en="I consent to my story being shared anonymously on this website. I understand that no identifying information will be published without separate, explicit approval from me.">
-                    Je consens à ce que mon témoignage soit partagé anonymement sur ce site. Je comprends qu'aucune information permettant de m'identifier ne sera publiée sans mon approbation explicite et séparée.
-                  </label>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="form-notice"
-              data-fr-html="<strong>Votre vie privée est importante.</strong> Toutes les soumissions sont strictement confidentielles. Nous ne publierons jamais votre nom, votre courriel ou votre numéro de logement. Si vous cochez la case de consentement ci-dessus, une version anonymisée de votre témoignage — arrondissement et situation générale seulement — pourra paraître sur ce site. Si vous ne la cochez pas, votre soumission est lue uniquement par les organisateurs de la campagne. Vous pouvez retirer votre consentement en tout temps en écrivant à <a href='mailto:makeakeliuspay.mtl@gmail.com'>makeakeliuspay.mtl@gmail.com</a>."
-              data-en-html="<strong>Your privacy matters.</strong> All submissions are kept strictly confidential. We will never publish your name, email, or unit number. If you check the consent box above, an anonymized version of your story — borough and general situation only — may appear on this site. If you leave it unchecked, your submission is read only by campaign organizers. You may withdraw consent at any time by emailing <a href='mailto:makeakeliuspay.mtl@gmail.com'>makeakeliuspay.mtl@gmail.com</a>.">
-              <strong>Votre vie privée est importante.</strong> Toutes les soumissions sont strictement confidentielles. Nous ne publierons jamais votre nom, votre courriel ou votre numéro de logement. Si vous cochez la case de consentement ci-dessus, une version anonymisée de votre témoignage — arrondissement et situation générale seulement — pourra paraître sur ce site. Si vous ne la cochez pas, votre soumission est lue uniquement par les organisateurs de la campagne. Vous pouvez retirer votre consentement en tout temps en écrivant à <a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a>.
-            </div>
-
-            <div class="form-submit">
-              <button type="submit" class="btn"
-                data-fr="Envoyer votre témoignage →"
-                data-en="Submit Your Story →">
-                Envoyer votre témoignage →
-              </button>
-            </div>
-
-            <div class="form-success" id="form-success" role="alert"
-              data-fr-html="<strong>Merci.</strong> Votre témoignage a bien été reçu. Nous lisons chaque soumission. Si vous avez fourni un courriel et posé une question, nous vous répondrons dans quelques jours."
-              data-en-html="<strong>Thank you.</strong> Your story has been received. We read every submission. If you provided an email and asked a question, we will follow up within a few days.">
-              <strong>Merci.</strong> Votre témoignage a bien été reçu. Nous lisons chaque soumission. Si vous avez fourni un courriel et posé une question, nous vous répondrons dans quelques jours.
-            </div>
-
-          </form>
+        <div class="form-card" style="max-width:680px;">
+          <p style="font-size:1.2rem;color:var(--text);margin-bottom:20px;font-weight:600;"
+            data-fr="Envoyez-nous votre témoignage par courriel."
+            data-en="Send us your story by email.">
+            Envoyez-nous votre témoignage par courriel.
+          </p>
+          <p style="color:#ccc8be;margin-bottom:28px;"
+            data-fr="Dites-nous ce qui s'est passé, votre arrondissement, et si vous consentez à ce que votre histoire soit publiée anonymement sur ce site. Vous n'avez pas à donner votre nom."
+            data-en="Tell us what happened, your borough, and whether you consent to your story being published anonymously on this site. You do not have to give your name.">
+            Dites-nous ce qui s'est passé, votre arrondissement, et si vous consentez à ce que votre histoire soit publiée anonymement sur ce site. Vous n'avez pas à donner votre nom.
+          </p>
+          <a href="mailto:makeakeliuspay.mtl@gmail.com" class="btn">
+            <span data-fr="Écrire à makeakeliuspay.mtl@gmail.com"
+                  data-en="Email makeakeliuspay.mtl@gmail.com">
+              Écrire à makeakeliuspay.mtl@gmail.com
+            </span>
+          </a>
+          <div class="form-notice" style="margin-top:28px;"
+            data-fr-html="<strong>Votre vie privée est importante.</strong> Nous ne publierons jamais votre nom ou toute information permettant de vous identifier sans votre approbation explicite. Si vous consentez à une publication anonyme, dites-le dans votre courriel. Vous pouvez retirer votre consentement en tout temps."
+            data-en-html="<strong>Your privacy matters.</strong> We will never publish your name or any identifying information without your explicit approval. If you consent to anonymous publication, say so in your email. You may withdraw consent at any time.">
+            <strong>Votre vie privée est importante.</strong> Nous ne publierons jamais votre nom ou toute information permettant de vous identifier sans votre approbation explicite. Si vous consentez à une publication anonyme, dites-le dans votre courriel. Vous pouvez retirer votre consentement en tout temps.
+          </div>
         </div>
 
       </div>
