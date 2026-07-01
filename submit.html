@@ -40,9 +40,9 @@
     <div class="page-hero">
       <div class="container">
         <h1 data-fr="Partagez votre histoire" data-en="Share Your Story">Partagez votre histoire</h1>
-        <p data-fr="Vous n'avez pas à donner votre nom. Vous n'avez pas à vous exposer publiquement. Dites-nous simplement ce qui s'est passé."
-           data-en="You don't have to give your name. You don't have to go public. Just tell us what happened.">
-          Vous n'avez pas à donner votre nom. Vous n'avez pas à vous exposer publiquement. Dites-nous simplement ce qui s'est passé.
+        <p data-fr="Le TAL peut vous accorder jusqu'à 25 000 $ en dommages punitifs si votre propriétaire vous a harcelé. Vous avez peut-être déjà droit à cet argent."
+           data-en="The TAL can award you up to $25,000 in punitive damages if your landlord harassed you. You may already be owed that money.">
+          Le TAL peut vous accorder jusqu'à 25 000 $ en dommages punitifs si votre propriétaire vous a harcelé. Vous avez peut-être déjà droit à cet argent.
         </p>
       </div>
     </div>
@@ -52,13 +52,9 @@
       <div class="container">
 
         <div class="form-intro">
-          <p data-fr="Chaque soumission contribue à construire un dossier public sur la façon dont Akelius traite ses locataires à Montréal. Nous lisons chaque témoignage. Si vous consentez à une publication anonyme, il pourra apparaître sur ce site. Si vous ne le faites pas — votre histoire compte quand même et nous aide à comprendre le schéma."
-             data-en="Every submission helps build a public record of how Akelius treats tenants in Montreal. We review every story. If you consent to anonymous publication, it may appear on this site. If you don't — your story still matters and helps us understand the pattern.">
-            Chaque soumission contribue à construire un dossier public sur la façon dont Akelius traite ses locataires à Montréal. Nous lisons chaque témoignage. Si vous consentez à une publication anonyme, il pourra apparaître sur ce site. Si vous ne le faites pas — votre histoire compte quand même et nous aide à comprendre le schéma.
-          </p>
-          <p data-fr="Vous ne serez jamais nommé ou identifié sans votre approbation explicite et séparée."
-             data-en="You will never be named or identified without your explicit, separate approval.">
-            Vous ne serez jamais nommé ou identifié sans votre approbation explicite et séparée.
+          <p data-fr="Beaucoup de locataires d'Akelius ont subi des violations réelles — entretien refusé, entrées non autorisées, pression pour partir — sans savoir qu'ils avaient des recours. Le Tribunal administratif du logement (TAL) peut vous accorder des réductions de loyer, des compensations, et jusqu'à 25 000 $ en dommages punitifs pour harcèlement. Écrivez-nous. On vous aide à évaluer si vous avez une réclamation valide — gratuitement, sans obligation."
+             data-en="Many Akelius tenants have experienced real violations — refused maintenance, unauthorized entries, pressure to leave — without knowing they had options. The Tribunal administratif du logement (TAL) can award you rent reductions, compensation, and up to $25,000 in punitive damages for harassment. Write to us. We'll help you assess whether you have a valid claim — free, no obligation.">
+            Beaucoup de locataires d'Akelius ont subi des violations réelles — entretien refusé, entrées non autorisées, pression pour partir — sans savoir qu'ils avaient des recours. Le Tribunal administratif du logement (TAL) peut vous accorder des réductions de loyer, des compensations, et jusqu'à 25 000 $ en dommages punitifs pour harcèlement. Écrivez-nous. On vous aide à évaluer si vous avez une réclamation valide — gratuitement, sans obligation.
           </p>
         </div>
 
@@ -69,9 +65,9 @@
             Envoyez-nous votre témoignage par courriel.
           </p>
           <p style="color:#ccc8be;margin-bottom:28px;"
-            data-fr="Dites-nous ce qui s'est passé, votre arrondissement, et si vous consentez à ce que votre histoire soit publiée anonymement sur ce site. Vous n'avez pas à donner votre nom."
-            data-en="Tell us what happened, your borough, and whether you consent to your story being published anonymously on this site. You do not have to give your name.">
-            Dites-nous ce qui s'est passé, votre arrondissement, et si vous consentez à ce que votre histoire soit publiée anonymement sur ce site. Vous n'avez pas à donner votre nom.
+            data-fr="Décrivez ce qui s'est passé et votre arrondissement. Pas besoin de numéro d'appartement. On vous répond avec une évaluation honnête de vos options."
+            data-en="Describe what happened and your borough. No unit number needed. We'll reply with an honest assessment of your options.">
+            Décrivez ce qui s'est passé et votre arrondissement. Pas besoin de numéro d'appartement. On vous répond avec une évaluation honnête de vos options.
           </p>
           <a href="mailto:makeakeliuspay.mtl@gmail.com" class="btn">
             <span data-fr="Écrire à makeakeliuspay.mtl@gmail.com"
@@ -114,72 +110,6 @@
       var isOpen = links.classList.toggle('open');
       btn.setAttribute('aria-expanded', isOpen);
     }
-
-    var form = document.getElementById('story-form');
-    var successMsg = document.getElementById('form-success');
-    var currentLang = localStorage.getItem('map_lang') || 'fr';
-
-    form.addEventListener('submit', function (e) {
-      var borough = document.getElementById('borough').value;
-      var story = document.getElementById('story').value.trim();
-
-      if (!borough) {
-        e.preventDefault();
-        document.getElementById('borough').focus();
-        document.getElementById('borough').style.borderColor = 'var(--red)';
-        return;
-      }
-
-      if (story.length < 20) {
-        e.preventDefault();
-        document.getElementById('story').focus();
-        document.getElementById('story').style.borderColor = 'var(--red)';
-        return;
-      }
-
-      if (form.action.includes('YOUR_FORM_ID_HERE')) {
-        e.preventDefault();
-        alert(
-          localStorage.getItem('map_lang') === 'en'
-            ? 'Form endpoint not configured yet. Please contact us directly at makeakeliuspay.mtl@gmail.com'
-            : 'Le formulaire n\'est pas encore configuré. Veuillez nous écrire directement à makeakeliuspay.mtl@gmail.com'
-        );
-        return;
-      }
-
-      e.preventDefault();
-      var data = new FormData(form);
-
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(function (response) {
-        if (response.ok) {
-          form.style.display = 'none';
-          successMsg.style.display = 'block';
-          window.scrollTo({ top: successMsg.offsetTop - 80, behavior: 'smooth' });
-        } else {
-          return response.json().then(function (data) {
-            throw new Error(data.error || 'Submission failed');
-          });
-        }
-      })
-      .catch(function (err) {
-        var msg = localStorage.getItem('map_lang') === 'en'
-          ? 'Something went wrong. Please email us at makeakeliuspay.mtl@gmail.com\n\nError: '
-          : 'Une erreur s\'est produite. Veuillez nous écrire à makeakeliuspay.mtl@gmail.com\n\nErreur : ';
-        alert(msg + err.message);
-      });
-    });
-
-    document.getElementById('borough').addEventListener('change', function () {
-      this.style.borderColor = '';
-    });
-    document.getElementById('story').addEventListener('input', function () {
-      this.style.borderColor = '';
-    });
   </script>
 
 </body>
