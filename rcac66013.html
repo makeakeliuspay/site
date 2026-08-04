@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Route</title>
+<style>
+  :root{
+    --bg:#1a1a1a; --panel:#232323; --panel2:#2b2b2b;
+    --text:#f0ece0; --muted:#9a958a; --accent:#e63a1e; --done:#3fae5a;
+    --line:#3a3a3a;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0 auto;max-width:640px;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:0 0 60px;line-height:1.35}
+  body.dragging-active{touch-action:none;user-select:none}
+  header{position:sticky;top:0;z-index:10;background:var(--bg);
+    border-bottom:1px solid var(--line);padding:14px 16px 12px}
+  h1{margin:0;font-size:20px;letter-spacing:.02em;font-weight:800}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--muted);font-size:13px;margin-top:2px}
+  .barwrap{margin-top:10px;background:var(--panel2);border-radius:20px;height:10px;overflow:hidden}
+  .bar{height:100%;width:0;background:var(--done);transition:width .25s}
+  .statusrow{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:10px}
+  .count{font-size:14px;font-weight:600}
+  .count b{color:var(--done)}
+  button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;font-size:13px}
+  button.reset:active{background:var(--panel2)}
+
+  .route{margin:12px 12px 0;border:1px solid var(--line);border-radius:14px;background:#1f1f1f;overflow:hidden}
+  .route.dragging{border-color:var(--accent);box-shadow:0 8px 22px rgba(0,0,0,.5);opacity:.96}
+  .rhead{display:flex;align-items:center;gap:10px;padding:12px 12px}
+  .grip{flex:0 0 auto;width:30px;height:38px;display:flex;flex-direction:column;justify-content:center;
+    gap:4px;padding:0 6px;cursor:grab;touch-action:none}
+  .grip span{display:block;height:2px;background:var(--muted);border-radius:2px}
+  .route.dragging .grip{cursor:grabbing}
+  .rtitle{flex:1 1 auto;min-width:0;cursor:pointer}
+  .rname{font-size:14px;font-weight:700;letter-spacing:.02em}
+  .rname .tnum{color:var(--accent)}
+  .rmeta{flex:0 0 auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+  .chev{flex:0 0 auto;color:var(--muted);font-size:13px;transition:transform .18s;cursor:pointer;padding:0 4px}
+  .route.collapsed .chev{transform:rotate(-90deg)}
+  .body{padding:0 12px 4px}
+  .route.collapsed .body{display:none}
+  .hint{color:var(--muted);font-size:12.5px;margin:0 0 10px;line-height:1.3}
+
+  .card{display:flex;align-items:center;gap:11px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:9px}
+  .card.done{background:#1e2a1f;border-color:#2c4a30}
+  .step{flex:0 0 auto;width:20px;text-align:center;color:var(--muted);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+  .card.done .step{color:var(--done)}
+  .check{flex:0 0 auto;width:30px;height:30px;border-radius:8px;border:2px solid var(--muted);
+    display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;background:transparent}
+  .card.done .check{background:var(--done);border-color:var(--done)}
+  .mid{flex:1 1 auto;min-width:0}
+  .addr{color:var(--text);text-decoration:none;font-size:16px;font-weight:600;display:block}
+  .card.done .addr{color:#cfe6d2}
+  .meta{font-size:12px;color:var(--muted);margin-top:2px}
+  .pin{flex:0 0 auto;width:44px;height:44px;border-radius:10px;background:var(--panel2);
+    display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none}
+  .pin:active{background:#3a3a3a}
+  .stamp{color:var(--done);font-size:12px;margin-top:2px;display:none}
+  .card.done .stamp{display:block}
+  .foot{color:var(--muted);font-size:12px;text-align:center;padding:22px 24px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Make <span>Akelius</span> Pay — Routes</h1>
+  <div class="sub" id="daysub">—</div>
+  <div class="barwrap"><div class="bar" id="bar"></div></div>
+  <div class="statusrow">
+    <div class="count"><b id="doneN">0</b> / <span id="totN">0</span> covered</div>
+    <button class="reset" onclick="newDay()">Start a new day</button>
+  </div>
+</header>
+<main id="app"></main>
+<div class="foot">Drag the <b>≡</b> handle to reorder routes · tap a route to collapse it.<br>Tap an <b>address</b> for Maps, tap the <b>box</b> to mark it covered. Saved on this phone only.</div>
+
+<script>
+const ROUTES = [
+  {key:"t1", name:"Downtown, east → west",
+   hint:"The main walk. Exit at Place-des-Arts or Peel metro on the east side and work west through the Golden Square Mile; the last three stops sit a few minutes apart at the west end — finish right by home."},
+  {key:"t2", name:"Westmount",
+   hint:"Just west of the downtown route, up the hill. Tack it onto the end of that walk, or metro to Atwater another day. 3 stops."},
+  {key:"t3", name:"Côte-des-Neiges & Outremont",
+   hint:"Other side of Mount Royal — a separate trip. Metro: Côte-des-Neiges / Snowdon / Outremont. Spread out; give it its own afternoon."},
+  {key:"t4", name:"Plateau",
+   hint:"Northeast. Metro: Mont-Royal. One building — pair it with a Plateau errand."},
+  {key:"t5", name:"Sud-Ouest / Lachine Canal",
+   hint:"South, near the canal. Metro: Charlevoix or Georges-Vanier. One building."}
+];
+// order within each route = walking order
+const BUILDINGS = [
+  {id:"pins", addr:"25 Avenue des Pins Ouest", route:"t1"},
+  {id:"peel", addr:"3460 Rue Peel", route:"t1", note:"Peel Plaza"},
+  {id:"drum21", addr:"3421 Rue Drummond", route:"t1"},
+  {id:"drum35", addr:"3435 Rue Drummond", route:"t1"},
+  {id:"drum68", addr:"3468 Rue Drummond", route:"t1"},
+  {id:"dufort", addr:"2060 Rue Du Fort", route:"t1"},
+  {id:"sher2068", addr:"2068 Rue Sherbrooke Ouest", route:"t1", note:"Shaughnessy Village"},
+  {id:"sher3015", addr:"3015 Rue Sherbrooke Ouest", route:"t1"},
+  {id:"maison", addr:"4800 Boulevard de Maisonneuve Ouest", route:"t2"},
+  {id:"sher4557", addr:"4557 Rue Sherbrooke Ouest", route:"t2"},
+  {id:"bona", addr:"4555 Avenue Bonavista", route:"t2"},
+  {id:"outre", addr:"590 Avenue Outremont", route:"t3"},
+  {id:"vanhorne", addr:"3495 Avenue Van Horne", route:"t3"},
+  {id:"queen", addr:"4570 Chemin Queen Mary", route:"t3"},
+  {id:"rachel", addr:"1595 Rue Rachel Est", route:"t4"},
+  {id:"canal", addr:"2700 Rue Rufus-Rockhead", route:"t5", note:"Les Jardins du Canal"}
+];
+const KEY = "map_route_state_v2";
+const DEFAULT_ORDER = ROUTES.map(r=>r.key);
+let state = load();
+
+function load(){
+  let s = null;
+  try{ s = JSON.parse(localStorage.getItem(KEY)); }catch(e){}
+  if(!s || typeof s!=="object") s = {};
+  if(!s.checked) s.checked = {};
+  if(!s.dayStarted) s.dayStarted = Date.now();
+  // order: keep any saved keys that still exist, append any new ones
+  let order = Array.isArray(s.order) ? s.order.filter(k=>DEFAULT_ORDER.includes(k)) : [];
+  DEFAULT_ORDER.forEach(k=>{ if(!order.includes(k)) order.push(k); });
+  s.order = order;
+  if(!s.collapsed) s.collapsed = {};
+  return s;
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function fmtDate(ts){ return new Date(ts).toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'}); }
+function fmtTime(ts){ return new Date(ts).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+function mapsUrl(addr){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(addr+", Montréal, QC"); }
+const routeByKey = k => ROUTES.find(r=>r.key===k);
+
+function render(){
+  document.getElementById("daysub").textContent = "Day started: "+fmtDate(state.dayStarted);
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  state.order.forEach((key,ri)=>{
+    const r = routeByKey(key); if(!r) return;
+    const items = BUILDINGS.filter(b=>b.route===key);
+    const doneZ = items.filter(b=>state.checked[b.id]).length;
+    const collapsed = !!state.collapsed[key];
+    const sec = document.createElement("section");
+    sec.className = "route"+(collapsed?" collapsed":"");
+    sec.dataset.key = key;
+    let cards = "";
+    items.forEach((b,i)=>{
+      const done = !!state.checked[b.id];
+      cards += `<div class="card${done?" done":""}" data-id="${b.id}">
+        <div class="step">${i+1}</div>
+        <div class="check" role="checkbox" tabindex="0" aria-checked="${done}">${done?"✓":""}</div>
+        <div class="mid">
+          <a class="addr" href="${mapsUrl(b.addr)}" target="_blank" rel="noopener">${b.addr}</a>
+          <div class="meta">${b.note||"&nbsp;"}</div>
+          <div class="stamp">Covered ${done?fmtTime(state.checked[b.id]):""}</div>
+        </div>
+        <a class="pin" href="${mapsUrl(b.addr)}" target="_blank" rel="noopener" aria-label="Open in Maps">📍</a>
+      </div>`;
+    });
+    sec.innerHTML = `
+      <div class="rhead">
+        <div class="grip" aria-label="Drag to reorder"><span></span><span></span><span></span></div>
+        <div class="rtitle"><div class="rname"><span class="tnum">Route ${ri+1}</span> — ${r.name}</div></div>
+        <div class="rmeta">${doneZ}/${items.length}</div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="body"><div class="hint">${r.hint}</div>${cards}</div>`;
+    // interactions
+    sec.querySelector(".grip").addEventListener("pointerdown", e=>startDrag(e, sec));
+    const toggle = ()=>toggleCollapse(key);
+    sec.querySelector(".rtitle").addEventListener("click", toggle);
+    sec.querySelector(".chev").addEventListener("click", toggle);
+    sec.querySelectorAll(".card").forEach(c=>{
+      c.querySelector(".check").addEventListener("click", ()=>toggleCheck(c.dataset.id));
+    });
+    app.appendChild(sec);
+  });
+  const done = Object.keys(state.checked).length;
+  document.getElementById("doneN").textContent = done;
+  document.getElementById("totN").textContent = BUILDINGS.length;
+  document.getElementById("bar").style.width = (done/BUILDINGS.length*100)+"%";
+}
+
+function toggleCheck(id){
+  if(state.checked[id]) delete state.checked[id];
+  else state.checked[id] = Date.now();
+  save(); render();
+}
+function toggleCollapse(key){
+  state.collapsed[key] = !state.collapsed[key];
+  save();
+  const sec = document.querySelector(`.route[data-key="${key}"]`);
+  if(sec) sec.classList.toggle("collapsed", state.collapsed[key]);
+}
+function newDay(){
+  if(Object.keys(state.checked).length && !confirm("Start a new day? This clears today's check-offs. (Your route order stays.)")) return;
+  state.checked = {}; state.dayStarted = Date.now();
+  save(); render();
+}
+
+/* ---- drag to reorder routes ---- */
+let drag = null;
+function startDrag(e, sec){
+  e.preventDefault();
+  drag = {sec};
+  sec.classList.add("dragging");
+  document.body.classList.add("dragging-active");
+  window.addEventListener("pointermove", onDragMove);
+  window.addEventListener("pointerup", endDrag, {once:true});
+  window.addEventListener("pointercancel", endDrag, {once:true});
+}
+function onDragMove(e){
+  if(!drag) return;
+  e.preventDefault();
+  const app = document.getElementById("app");
+  const secs = [...app.querySelectorAll(".route")];
+  const y = e.clientY;
+  for(const other of secs){
+    if(other===drag.sec) continue;
+    const rect = other.getBoundingClientRect();
+    if(y > rect.top && y < rect.bottom){
+      const before = y < rect.top + rect.height/2;
+      app.insertBefore(drag.sec, before ? other : other.nextSibling);
+      break;
+    }
+  }
+}
+function endDrag(){
+  if(!drag) return;
+  drag.sec.classList.remove("dragging");
+  document.body.classList.remove("dragging-active");
+  window.removeEventListener("pointermove", onDragMove);
+  const app = document.getElementById("app");
+  state.order = [...app.querySelectorAll(".route")].map(s=>s.dataset.key);
+  save();
+  drag = null;
+  render(); // renumber Route 1..N to the new order
+}
+
+render();
+</script>
+</body>
+</html>
