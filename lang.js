@@ -1,5 +1,5 @@
 /**
- * Bilingual switcher — FR default, EN on toggle.
+ * Bilingual switcher, FR default, EN on toggle.
  * Reads data-fr / data-en attributes (text) or
  * data-fr-html / data-en-html (innerHTML) on any element.
  * Persists choice to localStorage across pages.

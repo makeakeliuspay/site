@@ -1,4 +1,4 @@
-# Make Akelius Pay — Deployment Guide
+# Make Akelius Pay · Deployment Guide
 
 Complete step-by-step instructions to go from these files to a live site at makeakeliuspay.ca.
 
@@ -12,17 +12,17 @@ Complete step-by-step instructions to go from these files to a live site at make
 
 ---
 
-## Step 1 — Create the GitHub repository
+## Step 1 - Create the GitHub repository
 
 1. Go to https://github.com/new
-2. Repository name: `makeakeliuspay` (or any name — it doesn't affect the custom domain)
+2. Repository name: `makeakeliuspay` (or any name - it doesn't affect the custom domain)
 3. Set visibility to **Public** (required for free GitHub Pages)
-4. Do NOT initialize with a README — you already have one
+4. Do NOT initialize with a README - you already have one
 5. Click **Create repository**
 
 ---
 
-## Step 2 — Push the files to GitHub
+## Step 2 - Push the files to GitHub
 
 In your terminal, from the folder containing these files:
 
@@ -39,7 +39,7 @@ Replace `YOUR_GITHUB_USERNAME` with your actual GitHub username.
 
 ---
 
-## Step 3 — Enable GitHub Pages
+## Step 3 - Enable GitHub Pages
 
 1. Go to your repository on GitHub
 2. Click **Settings** (top tab)
@@ -54,7 +54,7 @@ Wait 1–2 minutes. The site should be live at that URL before you point the dom
 
 ---
 
-## Step 4 — Connect your GoDaddy domain
+## Step 4 - Connect your GoDaddy domain
 
 GitHub Pages requires specific DNS records. Log into GoDaddy and go to **DNS Management** for makeakeliuspay.ca.
 
@@ -81,7 +81,7 @@ Replace `YOUR_GITHUB_USERNAME` with your actual GitHub username.
 
 1. Under **Custom domain**, type `makeakeliuspay.ca`
 2. Click **Save**
-3. Check **Enforce HTTPS** (this option appears after DNS propagates — may take 10–30 minutes)
+3. Check **Enforce HTTPS** (this option appears after DNS propagates - may take 10–30 minutes)
 
 DNS changes can take up to 48 hours to propagate globally, but usually work within 30 minutes.
 
@@ -93,13 +93,13 @@ You should see the four GitHub IP addresses listed above.
 
 ---
 
-## Step 5 — Set up Formspree for the contact form
+## Step 5 - Set up Formspree for the contact form
 
 1. Go to https://formspree.io and create a free account
 2. Click **New Form**
-3. Name it something like "Make Akelius Pay — Story Submissions"
+3. Name it something like "Make Akelius Pay · Story Submissions"
 4. Enter the email address where you want submissions sent (e.g. makeakeliuspay.mtl@gmail.com)
-5. Copy your form endpoint — it looks like:
+5. Copy your form endpoint - it looks like:
    ```
    https://formspree.io/f/abcd1234
    ```
@@ -142,12 +142,12 @@ Formspree's free tier allows 50 submissions per month. If you expect more volume
 
 ```
 makeakeliuspay/
-├── index.html       — Homepage (hero, UN quote, testimonials, CTA)
-├── about.html       — About the campaign, UN report, TAL guide, resources
-├── submit.html      — Tenant story submission form (Formspree)
-├── style.css        — All styles (shared across all pages)
-├── CNAME            — GitHub Pages custom domain file (do not delete)
-└── README.md        — This file
+├── index.html       - Homepage (hero, UN quote, testimonials, CTA)
+├── about.html       - About the campaign, UN report, TAL guide, resources
+├── submit.html      - Tenant story submission form (Formspree)
+├── style.css        - All styles (shared across all pages)
+├── CNAME            - GitHub Pages custom domain file (do not delete)
+└── README.md        - This file
 ```
 
 ---
@@ -195,4 +195,4 @@ When a tenant submits via the form and consents to anonymous publication:
 - Log into Formspree dashboard to see if submissions are recorded there (even if email is delayed)
 
 **Form shows "Form endpoint not configured" alert:**
-- You still have `YOUR_FORM_ID_HERE` as the action value — replace it with your real Formspree endpoint
+- You still have `YOUR_FORM_ID_HERE` as the action value - replace it with your real Formspree endpoint

@@ -114,8 +114,8 @@ function startApp(data){
   document.getElementById("lock").style.display="none";
   document.getElementById("app-root").innerHTML=`
     <header>
-      <h1>Make <span>Akelius</span> Pay — Routes</h1>
-      <div class="sub" id="daysub">—</div>
+      <h1>Make <span>Akelius</span> Pay · Routes</h1>
+      <div class="sub" id="daysub">-</div>
       <div class="barwrap"><div class="bar" id="bar"></div></div>
       <div class="statusrow">
         <div class="count"><b id="doneN">0</b> / <span id="totN">0</span> covered</div>
@@ -172,7 +172,7 @@ function render(){
     sec.innerHTML=`
       <div class="rhead">
         <div class="grip" aria-label="Drag to reorder"><span></span><span></span><span></span></div>
-        <div class="rtitle"><div class="rname"><span class="tnum">Route ${ri+1}</span> — ${r.name}</div></div>
+        <div class="rtitle"><div class="rname"><span class="tnum">Route ${ri+1}</span> : ${r.name}</div></div>
         <div class="rmeta">${doneZ}/${items.length}</div>
         <div class="chev">▾</div>
       </div>

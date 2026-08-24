@@ -1,5 +1,5 @@
 /**
- * evaluer-data.js — recognized Quebec tenancy problems and their deterministic mapping.
+ * evaluer-data.js, recognized Quebec tenancy problems and their deterministic mapping.
  *
  * Every string here is pre-written and grounded in documented campaign sources
  * (the site's About page + the campaign's worked legal specifics). Nothing is
@@ -36,19 +36,19 @@
         en: 'Peaceful enjoyment of your home'
       },
       cite: {
-        fr: "Article 1854 C.c.Q. — le locateur est tenu de vous procurer la jouissance paisible du logement pendant toute la durée du bail. Ne pas agir contre un voisin menaçant peut être un manquement.",
-        en: 'Article 1854 C.c.Q. — the landlord must provide you with peaceful enjoyment of the dwelling for the entire lease. Failing to act on a threatening neighbour can be a breach.'
+        fr: "Article 1854 C.c.Q. : le locateur est tenu de vous procurer la jouissance paisible du logement pendant toute la durée du bail. Ne pas agir contre un voisin menaçant peut être un manquement.",
+        en: 'Article 1854 C.c.Q.: the landlord must provide you with peaceful enjoyment of the dwelling for the entire lease. Failing to act on a threatening neighbour can be a breach.'
       },
       document: {
         fr: [
           'La date et une description de chaque incident',
-          'Chaque plainte faite au propriétaire, et sa réponse — ou son absence de réponse',
+          'Chaque plainte faite au propriétaire, et sa réponse, ou son absence de réponse',
           'Les noms ou coordonnées de témoins',
           "Tout rapport de police, s'il y a lieu"
         ],
         en: [
           'The date and a description of each incident',
-          'Every complaint you made to the landlord, and their response — or lack of one',
+          'Every complaint you made to the landlord, and their response, or lack of one',
           'The names or contact details of any witnesses',
           'Any police report, if applicable'
         ]
@@ -73,8 +73,8 @@
         en: 'Notice and conditions of access to the dwelling'
       },
       cite: {
-        fr: "Articles 1902 à 1904 C.c.Q. — encadrent les conditions d'accès et interdisent le harcèlement visant à vous faire quitter. L'accès exige normalement un préavis (souvent 24 heures) et une fenêtre raisonnable.",
-        en: 'Articles 1902 to 1904 C.c.Q. — govern conditions of access and prohibit harassment aimed at making you leave. Access normally requires notice (often 24 hours) and a reasonable time window.'
+        fr: "Articles 1902 à 1904 C.c.Q., qui encadrent les conditions d'accès et interdisent le harcèlement visant à vous faire quitter. L'accès exige normalement un préavis (souvent 24 heures) et une fenêtre raisonnable.",
+        en: 'Articles 1902 to 1904 C.c.Q., which govern conditions of access and prohibit harassment aimed at making you leave. Access normally requires notice (often 24 hours) and a reasonable time window.'
       },
       document: {
         fr: [
@@ -166,8 +166,8 @@
         ]
       },
       remedies: {
-        fr: 'Le TAL peut refuser ou ajuster la hausse. Des délais stricts s’appliquent — contactez le TAL sans tarder.',
-        en: 'The TAL can refuse or adjust the increase. Strict deadlines apply — contact the TAL without delay.'
+        fr: 'Le TAL peut refuser ou ajuster la hausse. Des délais stricts s’appliquent, contactez le TAL sans tarder.',
+        en: 'The TAL can refuse or adjust the increase. Strict deadlines apply, contact the TAL without delay.'
       }
     },
     {
@@ -232,7 +232,7 @@
 
   /**
    * Build the organized situation map for the selected category ids, in the
-   * given language ('fr' or 'en'). Returns a plain, already-localized object —
+   * given language ('fr' or 'en'). Returns a plain, already-localized object -
    * no interpretation of free text, no inference beyond the selected ids.
    */
   function buildSituation(selectedIds, lang) {
