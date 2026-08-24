@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trousse de dépôt au TAL · Make Akelius Pay</title>
+  <meta name="description" content="Une trousse gratuite pour déposer vous-même une demande au Tribunal administratif du logement : quoi documenter, la mise en demeure, et comment déposer en ligne. Modèle de lettre inclus." />
+  <meta property="og:title" content="Trousse de dépôt au TAL · Make Akelius Pay" />
+  <meta property="og:description" content="Déposez votre propre demande au TAL. Guide pas-à-pas + modèle de lettre gratuit. Plus on est nombreux, plus ça pèse." />
+  <meta property="og:url" content="https://makeakeliuspay.ca/trousse.html" />
+  <link rel="canonical" href="https://makeakeliuspay.ca/trousse.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="lang.js"></script>
+  <style>
+    /* Filing-kit page: numbered steps + printable letter block. Scoped to this page. */
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .steps > li {
+      position: relative; padding: 0 0 8px 64px; margin: 0 0 32px;
+    }
+    .steps > li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--red, #c8102e); color: #fff;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .steps h3 { margin: 4px 0 8px; }
+    .lettre-modele {
+      background: #fff; color: #1a1a1a; border: 1px solid #d8d4cc;
+      border-radius: 8px; padding: 32px 28px; margin: 20px 0 8px;
+      font-size: 0.98rem; line-height: 1.6;
+    }
+    .lettre-modele .blank { font-weight: 700; color: #c8102e; }
+    .lettre-modele h4 { margin: 0 0 14px; font-size: 1.05rem; }
+    .print-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0 40px; }
+    .kit-note {
+      font-size: 0.9rem; opacity: 0.85; margin-top: 6px;
+    }
+    /* When printing the letter only, hide the rest of the page. */
+    @media print {
+      body.printing-letter nav,
+      body.printing-letter footer,
+      body.printing-letter .page-hero,
+      body.printing-letter .no-print { display: none !important; }
+      body.printing-letter .lettre-modele {
+        border: none; padding: 0; margin: 0; font-size: 12pt;
+      }
+      body.printing-letter main > section > .container > .prose > *:not(#lettre-fr-wrap):not(#lettre-en-wrap) {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────────────── -->
+  <nav role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-brand">Make <span>Akelius</span> Pay</a>
+
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" onclick="toggleNav(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+      <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+      <li><a href="evaluer.html" data-fr="Évaluez votre situation" data-en="Assess Your Situation">Évaluez votre situation</a></li>
+      <li><a href="trousse.html" class="active" data-fr="Trousse de dépôt" data-en="Filing Kit">Trousse de dépôt</a></li>
+      <li><a href="submit.html" data-fr="Partagez votre histoire" data-en="Share Your Story">Partagez votre histoire</a></li>
+    </ul>
+
+    <button class="lang-switch" id="lang-switch" aria-label="Switch language">EN</button>
+
+    <span class="nav-email">
+      <a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a>
+    </span>
+  </nav>
+
+  <main>
+
+    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <h1 data-fr="La trousse de dépôt" data-en="The Filing Kit">La trousse de dépôt</h1>
+        <p data-fr="Déposez vous-même une demande au TAL. Ce dont vous avez besoin est ici : quoi documenter, la lettre à envoyer, et comment déposer en ligne. Gratuit. Pas besoin d'avocat."
+           data-en="File your own demand at the TAL. Everything you need is here: what to document, the letter to send, and how to file online. Free. No lawyer needed.">
+          Déposez vous-même une demande au TAL. Ce dont vous avez besoin est ici : quoi documenter, la lettre à envoyer, et comment déposer en ligne. Gratuit. Pas besoin d'avocat.
+        </p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="prose">
+
+          <!-- WHY -->
+          <h2 data-fr="Vous avez peut-être un recours, vous aussi" data-en="You may have a claim too">
+            Vous avez peut-être un recours, vous aussi
+          </h2>
+          <p data-fr="L'eau qui manque, la pression qui baisse, l'eau chaude qui n'arrive pas : ce n'est pas normal, et ce n'est pas à vous de le régler. Au Québec, le propriétaire a l'obligation légale de fournir un logement qui fonctionne et de le garder en bon état pendant tout le bail. Quand le service manque encore et encore et qu'on vous répond seulement « c'est réglé » sans jamais réparer pour de bon, vous avez des droits."
+             data-en="Water cutting out, low pressure, hot water that never comes: this is not normal, and it is not your job to fix it. In Quebec, the landlord is legally required to provide a dwelling that works and to keep it in good condition throughout the lease. When the service keeps failing and all you get is a promise that it is fixed, with no real repair, you have rights.">
+            L'eau qui manque, la pression qui baisse, l'eau chaude qui n'arrive pas : ce n'est pas normal, et ce n'est pas à vous de le régler. Au Québec, le propriétaire a l'obligation légale de fournir un logement qui fonctionne et de le garder en bon état pendant tout le bail. Quand le service manque encore et encore et qu'on vous répond seulement « c'est réglé » sans jamais réparer pour de bon, vous avez des droits.
+          </p>
+          <p data-fr="Devant le Tribunal administratif du logement (TAL), vous pouvez demander : une ordonnance de réparation ; une diminution de loyer rétroactive pour la période où le service était mauvais ; des dommages-intérêts pour les troubles ; et, dans les cas de harcèlement, des dommages-intérêts punitifs."
+             data-en="At the Tribunal administratif du logement (TAL), you can ask for: a repair order; a backdated rent reduction for the period the service was bad; damages for the trouble; and, in harassment cases, punitive damages.">
+            Devant le Tribunal administratif du logement (TAL), vous pouvez demander : une ordonnance de réparation ; une diminution de loyer rétroactive pour la période où le service était mauvais ; des dommages-intérêts pour les troubles ; et, dans les cas de harcèlement, des dommages-intérêts punitifs.
+          </p>
+
+          <div class="callout">
+            <strong data-fr="Pourquoi le faire ensemble" data-en="Why do it together">Pourquoi le faire ensemble</strong><br />
+            <span data-fr="Le problème d'eau touche tout l'immeuble. Un seul locataire qui se plaint passe pour un cas isolé. Plusieurs locataires qui déposent chacun leur demande pour les mêmes problèmes, ça devient un dossier de comportement répété que le Tribunal prend beaucoup plus au sérieux. Chaque demande renforce les autres. Vous gardez votre dossier, votre voisin garde le sien : personne ne dépend de personne."
+                  data-en="The water problem affects the whole building. One tenant complaining reads as an isolated case. Several tenants each filing about the same problems becomes a pattern the Tribunal takes far more seriously. Each claim strengthens the others. You keep your own file, your neighbour keeps theirs: nobody depends on anyone.">
+              Le problème d'eau touche tout l'immeuble. Un seul locataire qui se plaint passe pour un cas isolé. Plusieurs locataires qui déposent chacun leur demande pour les mêmes problèmes, ça devient un dossier de comportement répété que le Tribunal prend beaucoup plus au sérieux. Chaque demande renforce les autres. Vous gardez votre dossier, votre voisin garde le sien : personne ne dépend de personne.
+            </span>
+          </div>
+
+          <!-- THREE STEPS -->
+          <h2 data-fr="Trois étapes pour déposer" data-en="Three steps to file">Trois étapes pour déposer</h2>
+          <ol class="steps">
+            <li>
+              <h3 data-fr="Documentez le problème" data-en="Document the problem">Documentez le problème</h3>
+              <p data-fr="La preuve, c'est ce qui gagne. Pour chaque panne : filmez ou photographiez le robinet à sec, la faible pression, ou l'eau chaude qui n'arrive pas, avec la date et l'heure visibles (dites-les à voix haute au début de la vidéo). Notez la date, l'heure, quels robinets et combien de temps. Signalez chaque fois au propriétaire et gardez la preuve. S'il n'offre qu'une ligne téléphonique, enregistrez l'appel : au Québec vous avez le droit d'enregistrer un appel auquel vous participez, et le TAL accepte ces enregistrements. Gardez vos vidéos à deux endroits et conservez les originaux. Si vous avez de vieux courriels de plainte, retrouvez-les : ils prouvent depuis quand ça dure."
+                 data-en="Evidence wins. For every outage: film or photograph the dry tap, low pressure, or missing hot water, with the date and time visible (say them aloud at the start of the video). Note the date, time, which taps, and how long. Report it to the landlord every time and keep proof. If they only offer a phone line, record the call: in Quebec you may record a call you are part of, and the TAL accepts these. Keep your videos in two places and keep the originals. If you have old complaint emails, find them: they show how long this has gone on.">
+                La preuve, c'est ce qui gagne. Pour chaque panne : filmez ou photographiez le robinet à sec, la faible pression, ou l'eau chaude qui n'arrive pas, avec la date et l'heure visibles (dites-les à voix haute au début de la vidéo). Notez la date, l'heure, quels robinets et combien de temps. Signalez chaque fois au propriétaire et gardez la preuve. S'il n'offre qu'une ligne téléphonique, enregistrez l'appel : au Québec vous avez le droit d'enregistrer un appel auquel vous participez, et le TAL accepte ces enregistrements. Gardez vos vidéos à deux endroits et conservez les originaux. Si vous avez de vieux courriels de plainte, retrouvez-les : ils prouvent depuis quand ça dure.
+              </p>
+            </li>
+            <li>
+              <h3 data-fr="Envoyez une mise en demeure (obligatoire)" data-en="Send a formal notice (mandatory)">Envoyez une mise en demeure (obligatoire)</h3>
+              <p data-fr="C'est une lettre formelle qui exige la réparation. C'est une étape obligatoire avant de déposer au TAL : elle prouve que vous avez tenté de régler le problème d'abord. Utilisez le modèle plus bas, remplissez chaque case en rouge, imprimez, signez, datez, et postez-la par courrier recommandé au propriétaire. Le recommandé vous donne un reçu de livraison, donc la preuve qu'il l'a reçue. Gardez une copie de la lettre et le reçu de la poste : les deux vont dans votre dossier."
+                 data-en="This is a formal letter demanding the repair. It is a mandatory step before filing at the TAL: it proves you tried to resolve it first. Use the template below, fill in every red field, print, sign, date, and mail it by registered mail to the landlord. Registered mail gives you a delivery receipt, which is proof they received it. Keep a copy of the letter and the mailing receipt: both go in your file.">
+                C'est une lettre formelle qui exige la réparation. C'est une étape obligatoire avant de déposer au TAL : elle prouve que vous avez tenté de régler le problème d'abord. Utilisez le modèle plus bas, remplissez chaque case en rouge, imprimez, signez, datez, et postez-la par courrier recommandé au propriétaire. Le recommandé vous donne un reçu de livraison, donc la preuve qu'il l'a reçue. Gardez une copie de la lettre et le reçu de la poste : les deux vont dans votre dossier.
+              </p>
+            </li>
+            <li>
+              <h3 data-fr="Déposez votre demande en ligne" data-en="File your demand online">Déposez votre demande en ligne</h3>
+              <p data-fr-html="Allez sur <a href='https://www.tal.gouv.qc.ca/' target='_blank' rel='noopener'>tal.gouv.qc.ca</a> et choisissez de déposer une demande en ligne. Le système vous guide vers le bon formulaire. Cochez ce qui s'applique : ordonnance de réparation, diminution de loyer rétroactive, dommages-intérêts, et, s'il y a harcèlement, dommages-intérêts punitifs. Racontez les faits dans l'ordre, avec les dates, et joignez votre preuve : vidéos, journal des pannes, copie de la mise en demeure et reçu recommandé. Vous recevez un numéro de dossier tout de suite ; gardez-le."
+                 data-en-html="Go to <a href='https://www.tal.gouv.qc.ca/' target='_blank' rel='noopener'>tal.gouv.qc.ca</a> and choose to file a demand online. The system routes you to the correct form. Check what applies: repair order, backdated rent reduction, damages, and, if there is harassment, punitive damages. Tell the facts in order, with dates, and attach your evidence: videos, outage log, copy of the mise en demeure and registered receipt. You get a file number right away; keep it.">
+                Allez sur <a href="https://www.tal.gouv.qc.ca/" target="_blank" rel="noopener">tal.gouv.qc.ca</a> et choisissez de déposer une demande en ligne. Le système vous guide vers le bon formulaire. Cochez ce qui s'applique : ordonnance de réparation, diminution de loyer rétroactive, dommages-intérêts, et, s'il y a harcèlement, dommages-intérêts punitifs. Racontez les faits dans l'ordre, avec les dates, et joignez votre preuve : vidéos, journal des pannes, copie de la mise en demeure et reçu recommandé. Vous recevez un numéro de dossier tout de suite ; gardez-le.
+              </p>
+            </li>
+          </ol>
+
+          <div class="callout">
+            <strong data-fr="Ce que ça coûte" data-en="What it costs">Ce que ça coûte</strong><br />
+            <span data-fr="Déposer coûte environ 47 $ à 92 $ selon ce que vous demandez (tarifs 2026). Si vous êtes prestataire de l'aide sociale (aide financière de dernier recours), vous êtes exempté des frais : demandez la dispense au personnel du Tribunal. Le montant récupéré dépend de la durée et de la gravité du problème ; visez surtout la réparation et une compensation juste (diminution de loyer plus dommages). Plus il y a de locataires qui déposent, plus le motif de harcèlement pèse lourd."
+                  data-en="Filing costs about $47 to $92 depending on what you ask for (2026 rates). If you receive last-resort financial assistance (welfare), you are exempt from the fee: ask TAL staff for the exemption. The amount recovered depends on how long and how bad the problem is; aim above all for the repair and fair compensation (rent reduction plus damages). The more tenants file, the heavier the harassment pattern weighs.">
+              Déposer coûte environ 47 $ à 92 $ selon ce que vous demandez (tarifs 2026). Si vous êtes prestataire de l'aide sociale (aide financière de dernier recours), vous êtes exempté des frais : demandez la dispense au personnel du Tribunal. Le montant récupéré dépend de la durée et de la gravité du problème ; visez surtout la réparation et une compensation juste (diminution de loyer plus dommages). Plus il y a de locataires qui déposent, plus le motif de harcèlement pèse lourd.
+            </span>
+          </div>
+
+          <!-- LETTER TEMPLATE -->
+          <h2 data-fr="Modèle de mise en demeure (à remplir)" data-en="Formal-notice template (fill in)">
+            Modèle de mise en demeure (à remplir)
+          </h2>
+          <p class="no-print" data-fr="Remplacez chaque case en rouge par vos renseignements. Imprimez, signez, et postez par courrier recommandé. Gardez une copie et le reçu."
+             data-en="Replace each red field with your own details. Print, sign, and mail by registered mail. Keep a copy and the receipt.">
+            Remplacez chaque case en rouge par vos renseignements. Imprimez, signez, et postez par courrier recommandé. Gardez une copie et le reçu.
+          </p>
+
+          <div class="print-row no-print">
+            <button class="btn" onclick="printLetter()" data-fr="Imprimer le modèle →" data-en="Print the template →">Imprimer le modèle →</button>
+          </div>
+
+          <!-- FRENCH LETTER -->
+          <div id="lettre-fr-wrap">
+            <div class="lettre-modele" id="lettre">
+              <h4 data-fr="Version française (à envoyer)" data-en="French version (send this one)">Version française (à envoyer)</h4>
+              <p>Montréal, le <span class="blank">[date]</span></p>
+              <p><strong>PAR COURRIER RECOMMANDÉ</strong></p>
+              <p><span class="blank">[Nom du propriétaire]</span><br />
+                 <span class="blank">[Adresse du propriétaire, telle qu'inscrite au bail]</span></p>
+              <p><strong>Objet : MISE EN DEMEURE, défaut de fournir l'eau et de maintenir le logement en bon état (<span class="blank">[votre adresse et numéro de logement]</span>)</strong></p>
+              <p>Madame, Monsieur,</p>
+              <p>Je suis locataire du logement situé au <span class="blank">[votre adresse complète, ville, code postal]</span>, que j'occupe depuis <span class="blank">[mois et année du début du bail]</span>.</p>
+              <p>Depuis <span class="blank">[période, par exemple « plusieurs mois »]</span>, le logement subit des interruptions répétées de l'eau <span class="blank">[et/ou : une baisse de pression / un défaut d'eau chaude]</span>, dont <span class="blank">[décrivez la dernière panne : date, ce qui s'est passé]</span>. À chaque signalement, on m'a affirmé que le problème était réglé, mais il se reproduit sans cesse et n'a jamais été corrigé de façon durable. J'ai signalé ces problèmes <span class="blank">[par téléphone / par courriel ; « et je conserve les enregistrements de ces appels » si applicable]</span>.</p>
+              <p>En vertu du Code civil du Québec, vous êtes tenu : de me garantir que le logement peut servir à l'usage prévu et de le maintenir à cet usage pendant toute la durée du bail (art. 1854, al. 2) ; d'effectuer toutes les réparations nécessaires (art. 1864) ; et de maintenir le logement en état d'habitabilité (art. 1910).</p>
+              <p><strong>EN CONSÉQUENCE, JE VOUS METS EN DEMEURE, dans un délai de DIX (10) JOURS de la réception de la présente :</strong> de rétablir immédiatement l'alimentation en eau si elle est interrompue ; de réparer de façon permanente la cause du problème d'eau et de plomberie du logement ; et de me confirmer par écrit les correctifs effectués.</p>
+              <p>À défaut de vous conformer dans ce délai, je saisirai le Tribunal administratif du logement afin d'obtenir une ordonnance de réparation, une diminution de loyer rétroactive pour la perte de service (art. 1863), des dommages-intérêts, ainsi que des dommages-intérêts punitifs pour harcèlement (art. 1902), et je me réserve tous mes autres recours.</p>
+              <p>Veuillez agir en conséquence.</p>
+              <p>_______________________________<br />
+                 <span class="blank">[Votre nom]</span><br />
+                 <span class="blank">[Votre adresse complète]</span><br />
+                 <span class="blank">[Votre téléphone]</span> · <span class="blank">[Votre courriel]</span></p>
+            </div>
+          </div>
+
+          <!-- ENGLISH LETTER -->
+          <div id="lettre-en-wrap">
+            <div class="lettre-modele">
+              <h4 data-fr="Version anglaise (pour votre référence)" data-en="English version (for your reference)">Version anglaise (pour votre référence)</h4>
+              <p>Montréal, <span class="blank">[date]</span></p>
+              <p><strong>BY REGISTERED MAIL</strong></p>
+              <p><span class="blank">[Landlord's name]</span><br />
+                 <span class="blank">[Landlord's address, as on the lease]</span></p>
+              <p><strong>Re: FORMAL NOTICE (MISE EN DEMEURE): failure to supply water and maintain the dwelling (<span class="blank">[your address and unit number]</span>)</strong></p>
+              <p>Dear Sir or Madam,</p>
+              <p>I am the tenant of the dwelling at <span class="blank">[your full address, city, postal code]</span>, which I have occupied since <span class="blank">[month and year the lease began]</span>.</p>
+              <p>For <span class="blank">[period]</span>, the dwelling has suffered repeated water interruptions <span class="blank">[and/or: a drop in pressure / no hot water]</span>, including <span class="blank">[describe the latest outage: date, what happened]</span>. Each time I reported it, I was told the problem was fixed, yet it keeps recurring and has never been permanently repaired. I reported these problems <span class="blank">[by phone / by email; add « and I retain recordings of those calls » if applicable]</span>.</p>
+              <p>Under the Civil Code of Québec you are required: to warrant that the dwelling can serve its intended purpose and to maintain it for that purpose throughout the lease (art. 1854, para. 2); to make all necessary repairs (art. 1864); and to keep the dwelling habitable (art. 1910).</p>
+              <p><strong>I THEREFORE FORMALLY DEMAND, within TEN (10) DAYS of receiving this notice, that you:</strong> immediately restore the water supply if it is interrupted; permanently repair the cause of the water/plumbing problem; and confirm the repairs to me in writing.</p>
+              <p>Failing which, I will apply to the Tribunal administratif du logement for a repair order, a backdated rent reduction for the lost service (art. 1863), damages, and punitive damages for harassment (art. 1902), and I reserve all other remedies.</p>
+              <p><span class="blank">[Your name]</span><br />
+                 <span class="blank">[Your full address]</span> · <span class="blank">[Your phone]</span> · <span class="blank">[Your email]</span></p>
+            </div>
+          </div>
+
+          <p class="kit-note no-print" data-fr="Note sur le délai : dix jours est un délai raisonnable pour une réparation permanente, tout en exigeant le rétablissement immédiat de toute panne en cours."
+             data-en="Note on the deadline: ten days is a reasonable window for a permanent fix while still demanding immediate restoration of any current outage.">
+            Note sur le délai : dix jours est un délai raisonnable pour une réparation permanente, tout en exigeant le rétablissement immédiat de toute panne en cours.
+          </p>
+
+          <!-- TALK TO NEIGHBOURS -->
+          <h2 class="no-print" data-fr="Parler à vos voisins" data-en="Talk to your neighbours">Parler à vos voisins</h2>
+          <p class="no-print" data-fr="Plus on est nombreux à déposer, plus ça pèse. Voici un mot simple à glisser sous une porte ou à dire de vive voix :"
+             data-en="The more of us who file, the more it weighs. Here is a simple note to slide under a door or say out loud:">
+            Plus on est nombreux à déposer, plus ça pèse. Voici un mot simple à glisser sous une porte ou à dire de vive voix :
+          </p>
+          <div class="callout no-print">
+            <span data-fr-html="<strong>Vous aussi, des problèmes d'eau ?</strong> Pression basse, pannes, eau chaude qui n'arrive pas : le propriétaire a l'obligation légale de fournir l'eau et de réparer. On peut déposer une demande au Tribunal administratif du logement pour une réparation, une diminution de loyer et des dommages. Ça coûte environ 47 $ à 92 $ (gratuit si vous êtes sur l'aide sociale), et pas besoin d'avocat. Plus on est nombreux à déposer, plus ça pèse, et chacun garde son propre dossier. Une trousse gratuite est en ligne : <strong>makeakeliuspay.ca</strong>."
+                  data-en-html="<strong>Water problems too?</strong> Low pressure, outages, no hot water: the landlord is legally required to supply water and repair it. We can file at the Tribunal administratif du logement for a repair, a rent reduction, and damages. It costs about $47 to $92 (free if you are on welfare), and no lawyer needed. The more of us who file, the more it weighs, and everyone keeps their own file. A free kit is online: <strong>makeakeliuspay.ca</strong>.">
+              <strong>Vous aussi, des problèmes d'eau ?</strong> Pression basse, pannes, eau chaude qui n'arrive pas : le propriétaire a l'obligation légale de fournir l'eau et de réparer. On peut déposer une demande au Tribunal administratif du logement pour une réparation, une diminution de loyer et des dommages. Ça coûte environ 47 $ à 92 $ (gratuit si vous êtes sur l'aide sociale), et pas besoin d'avocat. Plus on est nombreux à déposer, plus ça pèse, et chacun garde son propre dossier. Une trousse gratuite est en ligne : <strong>makeakeliuspay.ca</strong>.
+            </span>
+          </div>
+
+          <p class="kit-note no-print" data-fr="Cette trousse est un point de départ, pas un avis juridique. Nous ne sommes pas avocats. Pour un accompagnement, voir les comités de logement et l'aide juridique sur la page À propos."
+             data-en="This kit is a starting point, not legal advice. We are not lawyers. For hands-on help, see the housing committees and legal aid on the About page.">
+            Cette trousse est un point de départ, pas un avis juridique. Nous ne sommes pas avocats. Pour un accompagnement, voir les comités de logement et l'aide juridique sur la page À propos.
+          </p>
+
+          <!-- CTA -->
+          <div class="print-row no-print" style="margin-top:32px;">
+            <a href="evaluer.html" class="btn" data-fr="Évaluez votre situation →" data-en="Assess your situation →">Évaluez votre situation →</a>
+            <a href="submit.html" class="btn btn-white" data-fr="Partagez votre histoire →" data-en="Share your story →">Partagez votre histoire →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Make <span>Akelius</span> Pay</div>
+      <p data-fr="Une campagne citoyenne pour les droits des locataires, Montréal, Québec"
+         data-en="A grassroots tenant rights campaign, Montreal, Québec">
+        Une campagne citoyenne pour les droits des locataires, Montréal, Québec
+      </p>
+      <p><a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a></p>
+      <p style="margin-top:14px;"
+        data-fr="Cette trousse est fournie à titre d'information et ne constitue pas un avis juridique. Ce site n'est pas affilié à Akelius Residential, ni approuvé ou commandité par cette société."
+        data-en="This kit is provided for information and does not constitute legal advice. This site is not affiliated with, endorsed by, or sponsored by Akelius Residential.">
+        Cette trousse est fournie à titre d'information et ne constitue pas un avis juridique. Ce site n'est pas affilié à Akelius Residential, ni approuvé ou commandité par cette société.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      var links = document.getElementById('nav-links');
+      var isOpen = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+    }
+    function printLetter() {
+      document.body.classList.add('printing-letter');
+      window.print();
+      setTimeout(function () { document.body.classList.remove('printing-letter'); }, 500);
+    }
+  </script>
+
+</body>
+</html>

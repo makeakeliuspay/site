@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Page introuvable — Make Akelius Pay</title>
+  <meta name="description" content="Cette page n'existe pas. Retournez à l'accueil de Make Akelius Pay." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://makeakeliuspay.ca/404.html" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/lang.js"></script>
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────────────── -->
+  <nav role="navigation" aria-label="Navigation principale">
+    <a href="/index.html" class="nav-brand">Make <span>Akelius</span> Pay</a>
+
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" onclick="toggleNav(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+      <li><a href="/about.html" data-fr="À propos" data-en="About">À propos</a></li>
+      <li><a href="/evaluer.html" data-fr="Évaluez votre situation" data-en="Assess Your Situation">Évaluez votre situation</a></li>
+      <li><a href="/trousse.html" data-fr="Trousse de dépôt" data-en="Filing Kit">Trousse de dépôt</a></li>
+      <li><a href="/submit.html" data-fr="Partagez votre histoire" data-en="Share Your Story">Partagez votre histoire</a></li>
+    </ul>
+
+    <button class="lang-switch" id="lang-switch" aria-label="Switch language">EN</button>
+
+    <span class="nav-email">
+      <a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a>
+    </span>
+  </nav>
+
+  <main>
+    <section class="hero" aria-labelledby="nf-heading">
+      <div class="hero-inner">
+        <div class="hero-eyebrow"
+          data-fr="Erreur 404"
+          data-en="Error 404">
+          Erreur 404
+        </div>
+        <h1 id="nf-heading"
+          data-fr-html="Cette page<br />est introuvable."
+          data-en-html="This page<br />can't be found.">
+          Cette page<br />est introuvable.
+        </h1>
+        <p class="hero-sub"
+          data-fr="Le lien est peut-être brisé ou la page a été déplacée. Vos droits, eux, n'ont pas bougé."
+          data-en="The link may be broken or the page may have moved. Your rights, however, have not.">
+          Le lien est peut-être brisé ou la page a été déplacée. Vos droits, eux, n'ont pas bougé.
+        </p>
+        <a href="/index.html" class="btn"
+          data-fr="Retour à l'accueil →"
+          data-en="Back to home →">
+          Retour à l'accueil →
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Make <span>Akelius</span> Pay</div>
+      <p data-fr="Une campagne citoyenne pour les droits des locataires — Montréal, Québec"
+         data-en="A grassroots tenant rights campaign — Montreal, Québec">
+        Une campagne citoyenne pour les droits des locataires — Montréal, Québec
+      </p>
+      <p>
+        <a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      var links = document.getElementById('nav-links');
+      var isOpen = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+    }
+  </script>
+
+</body>
+</html>

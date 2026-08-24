@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Évaluez votre situation — Make Akelius Pay</title>
+  <meta name="description" content="Décrivez ce qui se passe dans votre logement Akelius et obtenez une carte claire de votre situation : les problèmes reconnus au Québec, quoi documenter, et la prochaine étape au TAL. Ce n'est pas un avis juridique." />
+  <link rel="canonical" href="https://makeakeliuspay.ca/evaluer.html" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="lang.js"></script>
+  <script src="evaluer-data.js"></script>
+  <style>
+    /* Tool-specific styles — reuse the site's CSS variables and classes.
+       Kept in-page so the shared stylesheet stays untouched. */
+    .step-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+    .step-hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+    }
+    .disclaimer-banner {
+      background: rgba(230, 58, 30, 0.08);
+      border-left: 4px solid var(--red);
+      padding: 16px 20px;
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .disclaimer-banner strong { color: var(--red); }
+
+    .opt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+    .opt-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .opt-card:hover { border-left-color: var(--red); }
+    .opt-card:focus-within { border-color: var(--red); }
+    .opt-card input[type="checkbox"] {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border: 2px solid #3a3a3a;
+      background: #111;
+      cursor: pointer;
+      position: relative;
+      top: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .opt-card input[type="checkbox"]:checked {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .opt-card input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 2px;
+      width: 10px; height: 7px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(-45deg) translateY(2px);
+    }
+    .opt-card input[type="checkbox"]:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+    .opt-card:has(input:checked) { border-left-color: var(--red); background: #262220; }
+    .opt-text .opt-name {
+      display: block;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .opt-text .opt-desc {
+      display: block;
+      color: #ccc8be;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .free-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    #free-notes {
+      background: #111;
+      border: 1px solid #3a3a3a;
+      color: var(--text);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 0.97rem;
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #free-notes:focus { border-color: var(--red); }
+    .free-hint { color: var(--muted); font-size: 0.82rem; margin-top: 8px; }
+
+    #result { margin-top: 48px; scroll-margin-top: 80px; }
+    .result-head {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .situation-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--red);
+      padding: 26px 24px;
+      margin-bottom: 22px;
+    }
+    .situation-card h3 {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+    .sc-block { margin-bottom: 16px; }
+    .sc-block:last-child { margin-bottom: 0; }
+    .sc-tag {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .sc-block p { color: #ccc8be; font-size: 0.95rem; line-height: 1.6; }
+    .doc-list { list-style: none; padding: 0; margin: 0; }
+    .doc-list li {
+      color: #ccc8be;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      padding: 6px 0 6px 24px;
+      position: relative;
+    }
+    .doc-list li::before {
+      content: '';
+      position: absolute;
+      left: 2px; top: 12px;
+      width: 9px; height: 9px;
+      border: 2px solid var(--red);
+      background: transparent;
+    }
+    .urgent-flag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--red);
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .result-empty {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 22px 24px;
+      color: #ccc8be;
+    }
+    .handoff {
+      background: var(--red);
+      padding: 34px 28px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .handoff h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      color: #fff;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+      line-height: 1.05;
+    }
+    .handoff p { color: rgba(255,255,255,0.88); margin-bottom: 22px; font-size: 1rem; }
+    .handoff .btn-white { margin: 6px; }
+    .handoff a.plain { color: #fff; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────────────── -->
+  <nav role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-brand">Make <span>Akelius</span> Pay</a>
+
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" onclick="toggleNav(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+      <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+      <li><a href="evaluer.html" class="active" data-fr="Évaluez votre situation" data-en="Assess Your Situation">Évaluez votre situation</a></li>
+      <li><a href="trousse.html" data-fr="Trousse de dépôt" data-en="Filing Kit">Trousse de dépôt</a></li>
+      <li><a href="submit.html" data-fr="Partagez votre histoire" data-en="Share Your Story">Partagez votre histoire</a></li>
+    </ul>
+
+    <button class="lang-switch" id="lang-switch" aria-label="Switch language">EN</button>
+
+    <span class="nav-email">
+      <a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a>
+    </span>
+  </nav>
+
+  <main>
+
+    <!-- ── PAGE HERO ─────────────────────────────────────── -->
+    <div class="page-hero">
+      <div class="container">
+        <h1 data-fr="Évaluez votre situation" data-en="Map Your Situation">Évaluez votre situation</h1>
+        <p data-fr="Dites-nous ce qui se passe chez vous. Vous obtenez une carte claire : les problèmes reconnus au Québec qui correspondent, quoi documenter, et la prochaine étape au TAL."
+           data-en="Tell us what is happening in your home. You get a clear map: the recognized Quebec problems that match, what to document, and the next step at the TAL.">
+          Dites-nous ce qui se passe chez vous. Vous obtenez une carte claire : les problèmes reconnus au Québec qui correspondent, quoi documenter, et la prochaine étape au TAL.
+        </p>
+      </div>
+    </div>
+
+    <section class="form-section">
+      <div class="container">
+
+        <!-- Persistent NOT-legal-advice framing -->
+        <div class="disclaimer-banner" role="note">
+          <span data-fr-html="<strong>À lire d'abord.</strong> Cet outil vous aide à <strong>organiser une réclamation potentielle</strong>. Ce n'est pas un avis juridique, et ce n'est pas une garantie de résultat. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite."
+                data-en-html="<strong>Read first.</strong> This tool helps you <strong>organize a potential claim</strong>. It is not legal advice, and it is not a guarantee of any outcome. Nothing is sent automatically: you choose what to do next.">
+            <strong>À lire d'abord.</strong> Cet outil vous aide à <strong>organiser une réclamation potentielle</strong>. Ce n'est pas un avis juridique, et ce n'est pas une garantie de résultat. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite.
+          </span>
+        </div>
+
+        <!-- Step 1 — guided selection -->
+        <div style="margin-top:44px;">
+          <h2 class="step-label" data-fr="1 · Qu'est-ce qui se passe ?" data-en="1 · What is happening?">1 · Qu'est-ce qui se passe ?</h2>
+          <p class="step-hint" data-fr="Sélectionnez tout ce qui s'applique. Vous pouvez en choisir plusieurs."
+             data-en="Select everything that applies. You can choose more than one.">
+            Sélectionnez tout ce qui s'applique. Vous pouvez en choisir plusieurs.
+          </p>
+
+          <div class="opt-grid" id="opt-grid">
+            <!-- Cards are rendered from evaluer-data.js so the page and the logic
+                 never drift apart. -->
+          </div>
+        </div>
+
+        <!-- Step 2 — optional free text (verbatim to the human handoff only; never interpreted) -->
+        <div>
+          <h2 class="step-label" data-fr="2 · Vos mots (facultatif)" data-en="2 · In your words (optional)">2 · Vos mots (facultatif)</h2>
+          <p class="step-hint" data-fr="Décrivez ce qui s'est passé. Ce texte n'est pas analysé par l'outil — il est simplement joint si vous choisissez de nous écrire, pour qu'une personne le lise."
+             data-en="Describe what happened. This text is not analyzed by the tool — it is simply attached if you choose to email us, so a person can read it.">
+            Décrivez ce qui s'est passé. Ce texte n'est pas analysé par l'outil — il est simplement joint si vous choisissez de nous écrire, pour qu'une personne le lise.
+          </p>
+          <label class="free-label" for="free-notes" data-fr="Ce qui s'est passé" data-en="What happened">Ce qui s'est passé</label>
+          <textarea id="free-notes"
+            data-fr-placeholder="Ex. : la pression d'eau baisse depuis deux ans, et on m'a donné moins de 24 h d'avis pour une inspection…"
+            data-en-placeholder="E.g.: the water pressure has been dropping for two years, and I was given less than 24h notice for an inspection…"></textarea>
+          <p class="free-hint" data-fr="N'incluez pas votre nom complet ni votre numéro d'appartement ici." data-en="Please do not include your full name or apartment number here.">
+            N'incluez pas votre nom complet ni votre numéro d'appartement ici.
+          </p>
+        </div>
+
+        <div style="margin-top:34px;">
+          <button type="button" class="btn" id="build-btn"
+            data-fr="Voir ma situation →" data-en="See my situation →">Voir ma situation →</button>
+        </div>
+
+        <!-- ── RESULT ─────────────────────────────────────── -->
+        <div id="result" aria-live="polite"></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Make <span>Akelius</span> Pay</div>
+      <p data-fr="Une campagne citoyenne pour les droits des locataires — Montréal, Québec"
+         data-en="A grassroots tenant rights campaign — Montreal, Québec">
+        Une campagne citoyenne pour les droits des locataires — Montréal, Québec
+      </p>
+      <p><a href="mailto:makeakeliuspay.mtl@gmail.com">makeakeliuspay.mtl@gmail.com</a></p>
+      <p style="margin-top:14px;"
+        data-fr="Ce site n'est pas affilié à Akelius Residential, ni approuvé ou commandité par cette société. Tous les témoignages sont partagés avec consentement et publiés anonymement."
+        data-en="This site is not affiliated with, endorsed by, or sponsored by Akelius Residential. All tenant stories are shared with consent and published anonymously.">
+        Ce site n'est pas affilié à Akelius Residential, ni approuvé ou commandité par cette société. Tous les témoignages sont partagés avec consentement et publiés anonymement.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      var links = document.getElementById('nav-links');
+      var isOpen = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+    }
+
+    (function () {
+      var D = window.EvaluerData;
+      var grid = document.getElementById('opt-grid');
+      var resultEl = document.getElementById('result');
+      var buildBtn = document.getElementById('build-btn');
+      var hasBuilt = false;
+
+      function currentLang() {
+        return (localStorage.getItem('map_lang') === 'en') ? 'en' : 'fr';
+      }
+
+      var T = {
+        resultHead:   { fr: 'Votre situation',                     en: 'Your situation' },
+        matchIntro:   { fr: 'Voici ce que votre sélection recoupe. Chaque point est rattaché à une base reconnue au Québec.',
+                        en: 'Here is what your selection lines up with. Each point is tied to a recognized Quebec basis.' },
+        empty:        { fr: 'Choisissez au moins une situation ci-dessus, puis touchez « Voir ma situation ». Si rien ne correspond exactement, écrivez-nous — une personne lira votre histoire.',
+                        en: 'Choose at least one situation above, then tap “See my situation.” If nothing matches exactly, write to us — a person will read your story.' },
+        tagBasis:     { fr: 'Ce que ça recoupe', en: 'What this lines up with' },
+        tagDoc:       { fr: 'À documenter',      en: 'What to document' },
+        tagStep:      { fr: 'Prochaine étape au TAL', en: 'Next step at the TAL' },
+        tagRemedy:    { fr: 'Ce que le TAL peut ordonner', en: 'What the TAL can order' },
+        urgent:       { fr: 'Délais stricts',    en: 'Strict deadlines' },
+        talLink:      { fr: 'Ouvrir le site du TAL →', en: 'Open the TAL website →' },
+        handoffHead:  { fr: 'Vous n’êtes pas seul dans ceci.', en: 'You are not alone in this.' },
+        handoffBody:  { fr: 'Envoyez-nous votre situation. On vous aide à évaluer vos options — gratuitement, sans obligation. Vous choisissez ce qui est publié, si quoi que ce soit l’est.',
+                        en: 'Send us your situation. We help you assess your options — free, no obligation. You choose what gets published, if anything.' },
+        emailBtn:     { fr: 'Nous écrire avec ce résumé', en: 'Email us this summary' },
+        storyLink:    { fr: 'ou partagez votre histoire', en: 'or share your story' },
+        mailSubject:  { fr: 'Ma situation — Make Akelius Pay', en: 'My situation — Make Akelius Pay' },
+        mailSel:      { fr: 'Situations sélectionnées :', en: 'Selected situations:' },
+        mailNotes:    { fr: 'Dans mes mots :', en: 'In my words:' },
+        mailFooter:   { fr: 'Résumé préparé avec l’outil d’auto-évaluation de makeakeliuspay.ca.',
+                        en: 'Summary prepared with the self-assessment tool at makeakeliuspay.ca.' }
+      };
+      function t(key) { return T[key][currentLang()]; }
+
+      // Render the selection cards from the data module.
+      function renderCards() {
+        var lang = currentLang();
+        grid.innerHTML = '';
+        D.CATEGORIES.forEach(function (cat) {
+          var checked = grid.dataset['sel_' + cat.id] === '1';
+          var label = document.createElement('label');
+          label.className = 'opt-card';
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = cat.id;
+          cb.checked = checked;
+          cb.addEventListener('change', function () {
+            grid.dataset['sel_' + cat.id] = cb.checked ? '1' : '0';
+            if (hasBuilt) build();
+          });
+          var text = document.createElement('span');
+          text.className = 'opt-text';
+          var nm = document.createElement('span');
+          nm.className = 'opt-name';
+          nm.textContent = cat.name[lang];
+          var ds = document.createElement('span');
+          ds.className = 'opt-desc';
+          ds.textContent = cat.desc[lang];
+          text.appendChild(nm); text.appendChild(ds);
+          label.appendChild(cb); label.appendChild(text);
+          grid.appendChild(label);
+        });
+      }
+
+      function selectedIds() {
+        return D.CATEGORIES
+          .filter(function (c) { return grid.dataset['sel_' + c.id] === '1'; })
+          .map(function (c) { return c.id; });
+      }
+
+      function el(tag, cls, txt) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (txt != null) n.textContent = txt;
+        return n;
+      }
+
+      function buildMailto(situation, ids) {
+        var lang = situation.lang;
+        var lines = [];
+        lines.push(t('mailSel'));
+        situation.items.forEach(function (it) { lines.push('- ' + it.name); });
+        var notes = document.getElementById('free-notes').value.trim();
+        if (notes) { lines.push(''); lines.push(t('mailNotes')); lines.push(notes); }
+        lines.push(''); lines.push(t('mailFooter'));
+        return 'mailto:makeakeliuspay.mtl@gmail.com'
+          + '?subject=' + encodeURIComponent(t('mailSubject'))
+          + '&body=' + encodeURIComponent(lines.join('\n'));
+      }
+
+      function build() {
+        hasBuilt = true;
+        var ids = selectedIds();
+        var lang = currentLang();
+        resultEl.innerHTML = '';
+
+        var head = el('h2', 'result-head', t('resultHead'));
+        resultEl.appendChild(head);
+
+        if (ids.length === 0) {
+          var empty = el('div', 'result-empty', t('empty'));
+          resultEl.appendChild(empty);
+          resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
+        var situation = D.buildSituation(ids, lang);
+
+        resultEl.appendChild(el('p', 'step-hint', T.matchIntro[lang]));
+
+        situation.items.forEach(function (it) {
+          var card = el('div', 'situation-card');
+          var h = el('h3', null, it.name);
+          if (it.urgent) {
+            var flag = el('span', 'urgent-flag', t('urgent'));
+            h.appendChild(flag);
+          }
+          card.appendChild(h);
+
+          var b1 = el('div', 'sc-block');
+          b1.appendChild(el('span', 'sc-tag', t('tagBasis')));
+          b1.appendChild(el('p', null, it.basis + ' — ' + it.cite));
+          card.appendChild(b1);
+
+          var b2 = el('div', 'sc-block');
+          b2.appendChild(el('span', 'sc-tag', t('tagDoc')));
+          var ul = el('ul', 'doc-list');
+          it.document.forEach(function (d) { ul.appendChild(el('li', null, d)); });
+          b2.appendChild(ul);
+          card.appendChild(b2);
+
+          var b3 = el('div', 'sc-block');
+          b3.appendChild(el('span', 'sc-tag', t('tagRemedy')));
+          b3.appendChild(el('p', null, it.remedies));
+          card.appendChild(b3);
+
+          resultEl.appendChild(card);
+        });
+
+        // General TAL info + repeated disclaimer
+        var gen = el('div', 'callout');
+        gen.appendChild(el('span', null, situation.general));
+        resultEl.appendChild(gen);
+
+        var talP = el('p', null);
+        talP.style.margin = '18px 0 6px';
+        var talA = el('a', null, t('talLink'));
+        talA.href = 'https://www.tal.gouv.qc.ca/';
+        talA.target = '_blank'; talA.rel = 'noopener';
+        talA.style.textDecoration = 'underline';
+        talP.appendChild(talA);
+        resultEl.appendChild(talP);
+
+        var disc = el('div', 'disclaimer-banner');
+        disc.style.marginTop = '18px';
+        disc.appendChild(el('span', null, situation.disclaimer));
+        resultEl.appendChild(disc);
+
+        // Human handoff
+        var ho = el('div', 'handoff');
+        ho.appendChild(el('h3', null, t('handoffHead')));
+        ho.appendChild(el('p', null, t('handoffBody')));
+        var mailBtn = el('a', 'btn btn-white', t('emailBtn'));
+        mailBtn.href = buildMailto(situation, ids);
+        ho.appendChild(mailBtn);
+        ho.appendChild(document.createElement('br'));
+        var storyA = el('a', 'plain', t('storyLink'));
+        storyA.href = 'submit.html';
+        storyA.style.display = 'inline-block';
+        storyA.style.marginTop = '14px';
+        ho.appendChild(storyA);
+        resultEl.appendChild(ho);
+
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      buildBtn.addEventListener('click', build);
+
+      // Re-render cards and any shown result when the language toggles.
+      var langBtn = document.getElementById('lang-switch');
+      if (langBtn) {
+        langBtn.addEventListener('click', function () {
+          // let lang.js swap static content first, then re-render dynamic parts
+          setTimeout(function () {
+            renderCards();
+            if (hasBuilt) build();
+          }, 0);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', renderCards);
+    })();
+  </script>
+
+</body>
+</html>
