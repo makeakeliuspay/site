@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Organisez vos preuves · Make Akelius Pay</title>
-  <meta name="description" content="Décrivez ce qui se passe dans votre logement Akelius et obtenez une carte claire de votre situation : les problèmes reconnus au Québec, quoi documenter, et la prochaine étape au TAL. Ce n'est pas un avis juridique." />
+  <meta name="description" content="Décrivez ce qui se passe dans votre logement Akelius et obtenez de l'information générale : ce que prévoit la loi, quoi documenter, et où vous adresser. Ce n'est pas un avis juridique." />
   <link rel="canonical" href="https://makeakeliuspay.ca/evaluer.html" />
   <link rel="stylesheet" href="style.css" />
   <script src="lang.js"></script>
@@ -239,9 +239,9 @@
     <div class="page-hero">
       <div class="container">
         <h1 data-fr="Organisez vos preuves" data-en="Organize Your Evidence">Organisez vos preuves</h1>
-        <p data-fr="Dites-nous ce qui se passe chez vous. Vous obtenez une carte claire : les problèmes reconnus au Québec qui correspondent, quoi documenter, et la prochaine étape au TAL."
-           data-en="Tell us what is happening in your home. You get a clear map: the recognized Quebec problems that match, what to document, and the next step at the TAL.">
-          Dites-nous ce qui se passe chez vous. Vous obtenez une carte claire : les problèmes reconnus au Québec qui correspondent, quoi documenter, et la prochaine étape au TAL.
+        <p data-fr="Choisissez les problèmes que vous vivez. Vous obtenez de l'information générale sur ce type de problème : ce que prévoit la loi, quoi documenter, et où vous adresser."
+           data-en="Pick the problems you are dealing with. You get general information about that kind of problem: what the law provides, what to document, and where to turn.">
+          Choisissez les problèmes que vous vivez. Vous obtenez de l'information générale sur ce type de problème : ce que prévoit la loi, quoi documenter, et où vous adresser.
         </p>
       </div>
     </div>
@@ -251,9 +251,9 @@
 
         <!-- Persistent NOT-legal-advice framing -->
         <div class="disclaimer-banner" role="note">
-          <span data-fr-html="<strong>À lire d'abord.</strong> Cet outil vous aide à <strong>organiser une réclamation potentielle</strong>. Ce n'est pas un avis juridique, et ce n'est pas une garantie de résultat. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite."
-                data-en-html="<strong>Read first.</strong> This tool helps you <strong>organize a potential claim</strong>. It is not legal advice, and it is not a guarantee of any outcome. Nothing is sent automatically: you choose what to do next.">
-            <strong>À lire d'abord.</strong> Cet outil vous aide à <strong>organiser une réclamation potentielle</strong>. Ce n'est pas un avis juridique, et ce n'est pas une garantie de résultat. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite.
+          <span data-fr-html="<strong>À lire d'abord.</strong> Cet outil donne de l'information générale et vous aide à <strong>organiser vos preuves</strong>. Il n'évalue pas votre situation et ne remplace pas un avocat ou l'aide juridique. Ce n'est pas un avis juridique. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite."
+                data-en-html="<strong>Read first.</strong> This tool gives general information and helps you <strong>organize your evidence</strong>. It does not assess your situation and does not replace a lawyer or legal aid. It is not legal advice. Nothing is sent automatically: you choose what to do next.">
+            <strong>À lire d'abord.</strong> Cet outil donne de l'information générale et vous aide à <strong>organiser vos preuves</strong>. Il n'évalue pas votre situation et ne remplace pas un avocat ou l'aide juridique. Ce n'est pas un avis juridique. Rien n'est envoyé automatiquement : vous choisissez quoi faire ensuite.
           </span>
         </div>
 
@@ -289,7 +289,7 @@
 
         <div style="margin-top:34px;">
           <button type="button" class="btn" id="build-btn"
-            data-fr="Voir ma situation →" data-en="See my situation →">Voir ma situation →</button>
+            data-fr="Voir l'information →" data-en="See the information →">Voir l'information →</button>
         </div>
 
         <!-- ── RESULT ─────────────────────────────────────── -->
@@ -336,27 +336,27 @@
       }
 
       var T = {
-        resultHead:   { fr: 'Votre situation',                     en: 'Your situation' },
-        matchIntro:   { fr: 'Voici ce que votre sélection recoupe. Chaque point est rattaché à une base reconnue au Québec.',
-                        en: 'Here is what your selection lines up with. Each point is tied to a recognized Quebec basis.' },
-        empty:        { fr: 'Choisissez au moins une situation ci-dessus, puis touchez « Voir ma situation ». Si rien ne correspond exactement, écrivez-nous, une personne lira votre histoire.',
-                        en: 'Choose at least one situation above, then tap “See my situation.” If nothing matches exactly, write to us, a person will read your story.' },
-        tagBasis:     { fr: 'Ce que ça recoupe', en: 'What this lines up with' },
+        resultHead:   { fr: 'Information générale',                en: 'General information' },
+        matchIntro:   { fr: 'Voici de l’information générale sur les problèmes choisis. Pour savoir ce qui s’applique à votre cas, adressez-vous à l’aide juridique, à un avocat ou à un comité logement.',
+                        en: 'Here is general information about the problems you picked. To know what applies to your case, talk to legal aid, a lawyer or a housing committee.' },
+        empty:        { fr: 'Choisissez au moins une situation ci-dessus, puis touchez « Voir l\u2019information ». Si rien ne correspond exactement, écrivez-nous, une personne lira votre histoire.',
+                        en: 'Choose at least one situation above, then tap “See the information.” If nothing matches exactly, write to us, a person will read your story.' },
+        tagBasis:     { fr: 'Ce que prévoit la loi', en: 'What the law provides' },
         tagDoc:       { fr: 'À documenter',      en: 'What to document' },
         tagStep:      { fr: 'Prochaine étape au TAL', en: 'Next step at the TAL' },
         tagRemedy:    { fr: 'Ce que le TAL peut ordonner', en: 'What the TAL can order' },
         urgent:       { fr: 'Délais stricts',    en: 'Strict deadlines' },
         talLink:      { fr: 'Ouvrir le site du TAL →', en: 'Open the TAL website →' },
         handoffHead:  { fr: 'Vous n’êtes pas seul dans ceci.', en: 'You are not alone in this.' },
-        handoffBody:  { fr: 'Envoyez-nous votre situation. On vous aide à évaluer vos options, gratuitement, sans obligation. Vous choisissez ce qui est publié, si quoi que ce soit l’est.',
-                        en: 'Send us your situation. We help you assess your options, free, no obligation. You choose what gets published, if anything.' },
+        handoffBody:  { fr: 'Envoyez-nous votre histoire. On vous dirige vers les bonnes ressources, gratuitement, sans obligation. Vous choisissez ce qui est publié, si quoi que ce soit l’est.',
+                        en: 'Send us your story. We point you to the right resources, free, no obligation. You choose what gets published, if anything.' },
         emailBtn:     { fr: 'Nous écrire avec ce résumé', en: 'Email us this summary' },
         storyLink:    { fr: 'ou partagez votre histoire', en: 'or share your story' },
         mailSubject:  { fr: 'Ma situation · Make Akelius Pay', en: 'My situation · Make Akelius Pay' },
         mailSel:      { fr: 'Situations sélectionnées :', en: 'Selected situations:' },
         mailNotes:    { fr: 'Dans mes mots :', en: 'In my words:' },
-        mailFooter:   { fr: 'Résumé préparé avec l’outil d’auto-évaluation de makeakeliuspay.ca.',
-                        en: 'Summary prepared with the self-assessment tool at makeakeliuspay.ca.' }
+        mailFooter:   { fr: 'Résumé préparé avec l’outil « Organisez vos preuves » de makeakeliuspay.ca.',
+                        en: 'Summary prepared with the “Organize Your Evidence” tool at makeakeliuspay.ca.' }
       };
       function t(key) { return T[key][currentLang()]; }
 

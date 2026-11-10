@@ -15,7 +15,7 @@
 
   // Legal article numbers grounded in the documented sources. The only C.c.Q.
   // article numbers allowed to appear anywhere in tool output.
-  var ALLOWED_CITATIONS = ['1854', '1902', '1903', '1904'];
+  var ALLOWED_CITATIONS = ['1854', '1902', '1931'];
 
   // Each category maps a plain-language situation to a documented legal basis,
   // a per-issue documentation checklist, the TAL next step, and the kinds of
@@ -54,8 +54,8 @@
         ]
       },
       remedies: {
-        fr: 'Le TAL peut accorder une réduction de loyer, des dommages, et jusqu’à 25 000 $ en dommages punitifs pour harcèlement.',
-        en: 'The TAL can award a rent reduction, damages, and up to $25,000 in punitive damages for harassment.'
+        fr: 'Le TAL peut accorder une réduction de loyer, des dommages, et des dommages punitifs pour harcèlement.',
+        en: 'The TAL can award a rent reduction, damages, and punitive damages for harassment.'
       }
     },
     {
@@ -73,8 +73,8 @@
         en: 'Notice and conditions of access to the dwelling'
       },
       cite: {
-        fr: "Articles 1902 à 1904 C.c.Q., qui encadrent les conditions d'accès et interdisent le harcèlement visant à vous faire quitter. L'accès exige normalement un préavis (souvent 24 heures) et une fenêtre raisonnable.",
-        en: 'Articles 1902 to 1904 C.c.Q., which govern conditions of access and prohibit harassment aimed at making you leave. Access normally requires notice (often 24 hours) and a reasonable time window.'
+        fr: "L'article 1931 C.c.Q. exige en général un préavis de 24 heures avant une visite ou des travaux, sauf urgence. L'article 1902 interdit le harcèlement.",
+        en: 'Article 1931 C.c.Q. generally requires 24 hours’ notice before a visit or work, except in an emergency. Article 1902 forbids harassment.'
       },
       document: {
         fr: [
@@ -110,8 +110,8 @@
         en: 'Reduced service without a rent reduction, and the duty to maintain'
       },
       cite: {
-        fr: "Reconnu par le TAL comme litige de réduction de service et d'entretien (voir la page À propos). Le Québec fixe des minimums, dont une pression d'eau minimale.",
-        en: 'Recognized by the TAL as a reduction-of-service and maintenance dispute (see the About page). Quebec sets minimums, including a minimum water pressure.'
+        fr: "Reconnu par le TAL comme litige de réduction de service et d'entretien (voir la page À propos).",
+        en: 'Recognized by the TAL as a reduction-of-service and maintenance dispute (see the About page).'
       },
       document: {
         fr: [
@@ -209,18 +209,18 @@
   ];
 
   // General TAL information shown alongside any result. All grounded in the
-  // About page: filing cost $0–$104, file online/mail/in person, no lawyer
+  // About page: filing cost about $47-$92 (2026), free on welfare, file online/mail/in person, no lawyer
   // required, keep your documentation.
   var GENERAL = {
-    fr: 'Déposer une demande au TAL coûte de 0 $ à 104 $. Vous pouvez déposer en ligne, par la poste, ou en personne. Vous n’avez pas besoin d’un avocat. Conservez toute votre documentation.',
-    en: 'Filing at the TAL costs $0 to $104. You can file online, by mail, or in person. You do not need a lawyer. Keep all of your documentation.'
+    fr: 'Déposer une demande au TAL coûte environ 47 $ à 92 $ (tarifs 2026), gratuit si vous êtes prestataire de l’aide sociale. Vous pouvez déposer en ligne, par la poste, ou en personne. Vous n’avez pas besoin d’un avocat. Conservez toute votre documentation.',
+    en: 'Filing at the TAL costs about $47 to $92 (2026 rates), free if you receive welfare. You can file online, by mail, or in person. You do not need a lawyer. Keep all of your documentation.'
   };
 
   // Repeated, non-negotiable framing: this organizes a potential claim; it is
   // not legal advice and promises no outcome.
   var DISCLAIMER = {
-    fr: 'Cet outil vous aide à organiser une réclamation potentielle. Ce n’est pas un avis juridique et ce n’est pas une garantie de résultat.',
-    en: 'This tool helps you organize a potential claim. It is not legal advice, and it is not a guarantee of any outcome.'
+    fr: 'Cet outil donne de l’information générale et vous aide à organiser vos preuves. Il n’évalue pas votre situation et ne remplace pas un avocat ou l’aide juridique. Ce n’est pas un avis juridique.',
+    en: 'This tool gives general information and helps you organize your evidence. It does not assess your situation and does not replace a lawyer or legal aid. It is not legal advice.'
   };
 
   function categoryById(id) {
