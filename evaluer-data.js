@@ -36,8 +36,8 @@
         en: 'Peaceful enjoyment of your home'
       },
       cite: {
-        fr: "Article 1854 C.c.Q. : le locateur est tenu de vous procurer la jouissance paisible du logement pendant toute la durée du bail. Ne pas agir contre un voisin menaçant peut être un manquement.",
-        en: 'Article 1854 C.c.Q.: the landlord must provide you with peaceful enjoyment of the dwelling for the entire lease. Failing to act on a threatening neighbour can be a breach.'
+        fr: "Article 1854 C.c.Q. : le locateur est tenu de vous procurer la jouissance paisible du logement pendant toute la durée du bail.",
+        en: 'Article 1854 C.c.Q.: the landlord must provide you with peaceful enjoyment of the dwelling for the entire lease.'
       },
       document: {
         fr: [
@@ -91,8 +91,8 @@
         ]
       },
       remedies: {
-        fr: 'Le TAL peut accorder une réduction de loyer rétroactive et des dommages. Si l’entrée fait partie d’un schéma, cela peut constituer du harcèlement.',
-        en: 'The TAL can award a backdated rent reduction and damages. If the entry is part of a pattern, it can amount to harassment.'
+        fr: 'Le TAL peut accorder une réduction de loyer rétroactive et des dommages.',
+        en: 'The TAL can award a backdated rent reduction and damages.'
       }
     },
     {
